@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from '../components/Button';
 import asPage from './asPage';
+import Category from '../components/Category';
 
 class Search extends Component {
   render(){
@@ -15,8 +16,8 @@ class Search extends Component {
               <Button
                 secondary
                 style={{
-                  height: '5em';
-                  borderRadius: '4px';
+                  height: '5em',
+                  borderRadius: '4px',
                 }}
               >
                 <div>
@@ -31,7 +32,12 @@ class Search extends Component {
             <span className="slider round" />
           </label>
         </div>
-        <h1>Search</h1>
+        <div className='test'>
+          <Category
+            icon="magic"
+            onClick={() => alert('poot')}
+          />
+        </div>
       </div>
     )
   }

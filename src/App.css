@@ -69,6 +69,20 @@
 .p-2{
   padding: 16px;
 }
+.pt-1 {
+  padding-top: 8px;
+}
+.cat-card {
+    line-height: 4px;
+}
+
+.cat-card .cat-card__img {
+    vertical-align: middle;
+}
+
+.pb-1 {
+  padding-bottom: 8px;
+}
 
 .pb-2{
   padding-bottom: 16px;
@@ -88,9 +102,9 @@
 }
 
 
-.btn:hover{
+/*.btn:hover{
   background-color: darkred;
-}
+}*/
 
 .btn--primary {
   background-color: red;
@@ -183,4 +197,9 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.full-relative {
+  position: relative;
+  height: 100%;
 }
