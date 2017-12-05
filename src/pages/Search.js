@@ -3,9 +3,34 @@ import Button from '../components/Button';
 import asPage from './asPage';
 import Category from '../components/Category';
 
+const searchCategories = [{
+  icon: 'magic',
+  route: '/wild-magic',
+  description: '10,000 Wild Magicks'
+}, {
+  icon: 'camera',
+  route: '/wild-test',
+  description: 'Fuckin test cat yo'
+}]
+
 class Search extends Component {
-  render(){
-    return(
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedSearchRoute: '',
+    };
+  }
+
+  handleSelectSearchRoute = (route, icon) => {
+    this.setState({
+      selectedSearchRoute: route,
+      searchButton: icon,
+    });
+  }
+
+  render() {
+    return (
       <div className='content'>
         <div className='content-top clearfix'>
           <div className='clearfix'>
@@ -20,9 +45,12 @@ class Search extends Component {
                   borderRadius: '4px',
                 }}
               >
-                <div>
-                  Search
-                </div>
+                {!!this.state.searchButton
+                  ? (
+                    <i className={`fa fa-${this.state.searchButton} fa-3x`} aria-hidden="true" />
+                  ) : (
+                    <i className={`fa fa-search fa-3x`} aria-hidden="true" />
+                  )}
               </Button>
             </div>
           </div>
@@ -32,12 +60,13 @@ class Search extends Component {
             <span className="slider round" />
           </label>
         </div>
-        <div className='test'>
+        {searchCategories.map((cat) => (
           <Category
-            icon="magic"
-            onClick={() => alert('poot')}
+            {...cat}
+            onClick={this.handleSelectSearchRoute}
+            isSelected={this.state.selectedSearchRoute === cat.route}
           />
-        </div>
+        ))}
       </div>
     )
   }
