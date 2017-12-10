@@ -1,6 +1,7 @@
-import React, Component from 'react';
+import React, { Component } from 'react';
+import { mockResult } from '../constants';
 
-const composeSearchResults = (searchComp, resultComp) => {
+const composeSearchResults = (SearchComp, ResultComp) => {
   return class SearchWithResults extends Component {
     constructor(props){
       super(props);
@@ -18,6 +19,7 @@ const composeSearchResults = (searchComp, resultComp) => {
 
     getResults = (...args) => {
       console.log('Getting results for', ...args);
+      this.setState({ results: [mockResult] });
       // setState({ isFetching: true, errors: [] })
       // make a network request in here
       // .then(response => setState({results: response, isFetching: false}))
@@ -25,18 +27,17 @@ const composeSearchResults = (searchComp, resultComp) => {
     }
 
     render() {
+      const hasResults = !!this.state.results.length;
       return (
-        {this.state.results.length
-          ? <resultComp
+        hasResults ? <ResultComp
               results={this.state.results}
               clearResults={this.clearResults}
               {...this.props}
             />
-          : <searchComp
+          : <SearchComp
               getResults={this.getResults}
               {...this.props}
             />
-        }
       )
     }
   }
