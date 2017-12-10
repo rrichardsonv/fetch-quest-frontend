@@ -3,6 +3,9 @@ import Button from '../components/Button';
 import asPage from './asPage';
 import Category from '../components/Category';
 
+
+const API_URL = 'http://api.10000wands.com/api/v1' + '/search';
+
 const searchCategories = [{
   icon: 'magic',
   route: '/wild-magic',
@@ -18,7 +21,7 @@ class Search extends Component {
     super(props);
 
     this.state = {
-      selectedSearchRoute: '',
+      selectedSearchRoute: '/general',
     };
   }
 
@@ -29,40 +32,62 @@ class Search extends Component {
     });
   }
 
+  handleSubmit = (ev) => {
+    ev && ev.preventDefault();
+    const { query, random } = ev.target.elements;
+    let request = `${API_URL}${this.state.selectedSearchRoute}`
+
+    if(query.value) {
+      request += '?q=' + query.value + '&'
+    }
+
+    if(random.checked) {
+      request += request.endsWith('&') ? 'firstResult=true' : '?firstResult=true'
+    } else {
+      request += request.endsWith('&') ? 'firstResult=false' : '?firstResult=false'
+    }
+
+    this.props.getResults(request);
+  }
+
   render() {
     return (
       <div className='content'>
         <div className='content-top clearfix'>
-          <div className='clearfix'>
-            <div className='inline-input inline-search-input'>
-              <input className='search-bar' />
+          <form onSubmit={this.handleSubmit}>
+            <div className='clearfix'>
+              <div className='inline-input inline-search-input'>
+                <input className='search-bar' name='query' />
+              </div>
+              <div className='inline-input'>
+                <Button
+                  type="submit"
+                  secondary
+                  style={{
+                    height: '5em',
+                    borderRadius: '4px',
+                  }}
+                >
+                  {!!this.state.searchButton
+                    ? (
+                      <i className={`fa fa-${this.state.searchButton} fa-3x`} aria-hidden="true" />
+                    ) : (
+                      <i className={`fa fa-search fa-3x`} aria-hidden="true" />
+                    )}
+                </Button>
+              </div>
             </div>
-            <div className='inline-input'>
-              <Button
-                secondary
-                style={{
-                  height: '5em',
-                  borderRadius: '4px',
-                }}
-              >
-                {!!this.state.searchButton
-                  ? (
-                    <i className={`fa fa-${this.state.searchButton} fa-3x`} aria-hidden="true" />
-                  ) : (
-                    <i className={`fa fa-search fa-3x`} aria-hidden="true" />
-                  )}
-              </Button>
-            </div>
-          </div>
 
-          <label className="switch">
-            <input type="checkbox" />
-            <span className="slider round" />
-          </label>
+            <label className="switch">
+              <input type="checkbox" name="random"/>
+              <span className="slider round" />
+            </label>
+          </form>
         </div>
         {searchCategories.map((cat) => (
           <Category
             {...cat}
+            key={cat.route}
             onClick={this.handleSelectSearchRoute}
             isSelected={this.state.selectedSearchRoute === cat.route}
           />
