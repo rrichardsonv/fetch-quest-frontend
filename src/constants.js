@@ -4,19 +4,19 @@ export const mockResult = {
   type: 'wild-magic',
   description: '<DICE>A<DICE> bones teleport into caster; loses <DICE>B<DICE> HP per bone',
   dice: [{
-    key: 'A',
-    value: 5,
+    k: 'A',
+    value: '5',
     range: [0,7],
     type: 'd8',
     number: '1',
     modifier: '-1'
   },{
-    key: 'B',
-    value: 8,
+    k: 'B',
+    value: '8',
     range: [1,12],
     type: 'd12',
     number: '1',
     modifier: ''
   }],
-  isRolled: true
+  isRolled: false
 }

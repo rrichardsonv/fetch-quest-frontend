@@ -4,7 +4,7 @@ import asPage from './asPage';
 import Category from '../components/Category';
 
 
-const API_URL = 'http://api.10000wands.com/api/v1' + '/search';
+const API_URL = 'http://api.10000wands.com/api/v1/search';
 
 const searchCategories = [{
   icon: 'magic',
@@ -92,6 +92,12 @@ class Search extends Component {
             isSelected={this.state.selectedSearchRoute === cat.route}
           />
         ))}
+        <div className="d4" />
+        <div className="d6" />
+        <div className="d8" />
+        <div className="d10" />
+        <div className="d12" />
+        <div className="d20" />
       </div>
     )
   }
